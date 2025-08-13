@@ -315,6 +315,32 @@ class PremiumCalculator {
     }
 }
 
+const squares = document.querySelectorAll('.background-squares span');
+
+document.addEventListener('mousemove', (e) => {
+    squares.forEach((square) => {
+        const rect = square.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 120) {
+            square.classList.add('active');
+        } else {
+            square.classList.remove('active');
+        }
+    });
+});
+
+// Randomly position the squares
+function positionSquares() {
+    squares.forEach((square) => {
+        square.style.top = `${Math.random() * 100}%`;
+        square.style.left = `${Math.random() * 100}%`;
+    });
+}
+positionSquares();
+
 // Initialize calculator when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     const calculator = new PremiumCalculator();
